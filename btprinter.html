@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+ 
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   :root{
@@ -31,7 +31,7 @@
   .back:hover{background:rgba(255,255,255,0.08);}
   h1{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;}
   .sub{font-size:12px;color:var(--muted2);margin-top:2px;}
-
+ 
   .card{
     background:rgba(20,8,50,0.55);backdrop-filter:blur(20px) saturate(160%);
     border:1px solid var(--glass-border);border-radius:20px;padding:20px;margin-bottom:16px;
@@ -40,11 +40,11 @@
     display:flex;align-items:center;gap:8px;letter-spacing:.02em;color:var(--accent2);}
   .card h2 .n{width:20px;height:20px;border-radius:6px;background:rgba(6,182,212,0.15);
     display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent2);}
-
+ 
   .status-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted2);margin-bottom:14px;}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);}
   .dot.on{background:var(--green);box-shadow:0 0 8px var(--green);}
-
+ 
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:11px 18px;border-radius:12px;border:none;font-family:'Poppins',sans-serif;
@@ -58,7 +58,7 @@
   .btn-glass:hover{background:rgba(255,255,255,0.08);}
   .btn-block{width:100%;}
   .btn-sm{padding:7px 12px;font-size:12px;border-radius:9px;}
-
+ 
   select,input[type=text]{
     width:100%;padding:11px 14px;border-radius:12px;background:rgba(0,0,0,0.3);
     border:1px solid var(--glass-border);color:var(--text);font-family:'Poppins',sans-serif;font-size:13px;
@@ -66,10 +66,10 @@
   label.f{display:block;font-size:11px;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;}
   .field{margin-bottom:12px;}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
+ 
   .empty{text-align:center;padding:30px 10px;color:var(--muted2);font-size:13px;}
   .empty .ic{font-size:34px;margin-bottom:10px;}
-
+ 
   table.preview{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px;}
   table.preview th,table.preview td{padding:8px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);}
   table.preview th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;}
@@ -79,13 +79,13 @@
   .groupTitle{font-size:11px;font-weight:700;color:var(--accent2);margin:14px 0 4px;text-transform:uppercase;letter-spacing:.04em;}
   .groupTitle:first-child{margin-top:0;}
   .summary{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--glass-border);}
-
+ 
   .adv{margin-top:10px;}
   .adv summary{cursor:pointer;font-size:12px;color:var(--muted2);list-style:none;}
   .adv summary::-webkit-details-marker{display:none;}
   .adv summary::before{content:'⚙ ';}
   .adv[open] summary{margin-bottom:10px;}
-
+ 
   .toast{
     position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
     background:rgba(15,10,35,0.95);border:1px solid var(--glass-border);
@@ -95,14 +95,14 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
   .toast.error{border-color:rgba(251,113,133,0.4);color:#fda4af;}
   .toast.success{border-color:rgba(52,211,153,0.4);color:#6ee7b7;}
-
+ 
   .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);
     border-top-color:var(--accent2);animation:spin .7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
-
+ 
 <div class="wrap">
   <header>
     <a href="index.html" class="back" aria-label="Back">
@@ -113,7 +113,7 @@
       <div class="sub">Print a saved report — Brand · ML · OB · CB · Sales</div>
     </div>
   </header>
-
+ 
   <!-- STEP 1: LOGIN -->
   <div class="card" id="loginCard">
     <h2><span class="n">1</span>Sign in</h2>
@@ -123,7 +123,7 @@
       Sign in with Google
     </button>
   </div>
-
+ 
   <!-- STEP 2: PICK REPORT -->
   <div class="card" id="reportCard" style="display:none;">
     <h2><span class="n">2</span>Choose a cloud report</h2>
@@ -135,7 +135,7 @@
     <button class="btn btn-glass btn-sm" id="refreshBtn">↻ Refresh list</button>
     <div id="previewBox" style="margin-top:16px;"></div>
   </div>
-
+ 
   <!-- STEP 3: PRINTER -->
   <div class="card" id="printerCard" style="display:none;">
     <h2><span class="n">3</span>Bluetooth printer</h2>
@@ -150,7 +150,7 @@
         Print
       </button>
     </div>
-
+ 
     <details class="adv">
       <summary>Printer settings (advanced)</summary>
       <div class="field">
@@ -178,14 +178,14 @@
     </details>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
+ 
 <script>
 // ════════════════════════════════════════════
 // FIREBASE (same project as cloud.html)
@@ -202,12 +202,12 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 const provider = new firebase.auth.GoogleAuthProvider();
-
+ 
 let currentUser = null;
 let allReports = [];
 let selectedRows = [];   // [{brand, ml, ob, cb, sales}]
 let selectedName = '';
-
+ 
 // ════════════════════════════════════════════
 // TOAST
 // ════════════════════════════════════════════
@@ -219,13 +219,13 @@ function showToast(msg, type='info') {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=> t.className='toast', 3200);
 }
-
+ 
 // ════════════════════════════════════════════
 // AUTH
 // ════════════════════════════════════════════
 document.getElementById('loginBtn').onclick = () => auth.signInWithPopup(provider)
   .catch(e => showToast('Login error: ' + e.message, 'error'));
-
+ 
 auth.onAuthStateChanged(user => {
   currentUser = user || null;
   const dot = document.getElementById('authDot');
@@ -233,7 +233,7 @@ auth.onAuthStateChanged(user => {
   const loginCard = document.getElementById('loginCard');
   const reportCard = document.getElementById('reportCard');
   const printerCard = document.getElementById('printerCard');
-
+ 
   if (user) {
     dot.classList.add('on');
     txt.textContent = user.email || user.displayName || 'Signed in';
@@ -249,7 +249,7 @@ auth.onAuthStateChanged(user => {
     printerCard.style.display = 'none';
   }
 });
-
+ 
 // ════════════════════════════════════════════
 // LOAD REPORT LIST FROM FIRESTORE
 // ════════════════════════════════════════════
@@ -259,7 +259,7 @@ async function loadReports() {
   try {
     const snap = await db.collection('users').doc(currentUser.uid)
       .collection('reports').orderBy('timestamp', 'desc').get();
-
+ 
     allReports = [];
     snap.forEach(doc => {
       const d = doc.data();
@@ -270,14 +270,14 @@ async function loadReports() {
         ts: d.timestamp && d.timestamp.toDate ? d.timestamp.toDate() : null,
       });
     });
-
+ 
     if (!allReports.length) {
       sel.innerHTML = '<option value="">No cloud reports found</option>';
       document.getElementById('previewBox').innerHTML =
         '<div class="empty"><div class="ic">📭</div>No reports saved to the cloud yet.</div>';
       return;
     }
-
+ 
     sel.innerHTML = '<option value="">Select a report…</option>' +
       allReports.map((r,i) => `<option value="${i}">${r.name}${r.ts ? ' — ' + r.ts.toLocaleDateString() : ''} (${r.data.length} rows)</option>`).join('');
   } catch (e) {
@@ -286,12 +286,12 @@ async function loadReports() {
   }
 }
 document.getElementById('refreshBtn').onclick = loadReports;
-
+ 
 document.getElementById('reportSelect').addEventListener('change', (e) => {
   const idx = e.target.value;
   const box = document.getElementById('previewBox');
   if (idx === '') { box.innerHTML = ''; selectedRows = []; updatePrintAvailability(); return; }
-
+ 
   const report = allReports[idx];
   selectedName = report.name;
   // Keep price too (not printed) — needed only to sort/group exactly like calculator.html
@@ -303,28 +303,30 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
     sales: row.sales ?? 0,
     price: row.price ?? 0,
   }));
-
+ 
   if (!selectedRows.length) {
     box.innerHTML = '<div class="empty"><div class="ic">🗒️</div>This report has no rows.</div>';
     updatePrintAvailability();
     return;
   }
-
+ 
   const groups = groupLikeCalculator(selectedRows);
+  let sn = 0; // continuous serial number across all tables (same as print)
   const totalSales = selectedRows.reduce((a,r)=>a + (Number(r.sales)||0), 0);
   const grand = computeImflBeerTotal(groups);
-
+ 
   box.innerHTML = `
     <div class="scrollbox">
       ${groups.filter(g => g.rows.length).map(g => `
         <div class="groupTitle">${escapeHtml(g.title)}</div>
         <table class="preview">
           <thead>
-            <tr><th>Brand</th><th>ML</th><th class="num">OB</th><th class="num">CB</th><th class="num">Sales</th></tr>
+            <tr><th>#</th><th>Brand</th><th>ML</th><th class="num">OB</th><th class="num">CB</th><th class="num">Sales</th></tr>
           </thead>
           <tbody>
             ${g.rows.map(r => `
               <tr>
+                <td>${++sn}</td>
                 <td>${escapeHtml(String(r.brand))}</td>
                 <td>${escapeHtml(String(r.ml))}</td>
                 <td class="num">${r.ob}</td>
@@ -355,9 +357,9 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
   `;
   updatePrintAvailability();
 });
-
+ 
 function money(n) { return (Number(n) || 0).toFixed(2); }
-
+ 
 // ════════════════════════════════════════════
 // GROUP + SORT — mirrors calculator.html's 8 tables
 // (same ml/price bands, same "price then brand" sort)
@@ -372,12 +374,12 @@ const GROUPS = [
   { title:"Table 7: 650 ml",  filter: r => Number(r.ml)===650 },
   { title:"Table 8: 500 ml",  filter: r => Number(r.ml)===500 },
 ];
-
+ 
 function compareByPriceThenBrand(a, b) {
   if (Number(a.price) !== Number(b.price)) return Number(a.price) - Number(b.price);
   return String(a.brand||'').toLowerCase().localeCompare(String(b.brand||'').toLowerCase());
 }
-
+ 
 function groupLikeCalculator(rows) {
   const used = new Set();
   const groups = GROUPS.map(g => {
@@ -390,7 +392,7 @@ function groupLikeCalculator(rows) {
   if (leftover.length) groups.push({ title: 'Other', rows: leftover });
   return groups;
 }
-
+ 
 // Grand total across Tables 1-6 (IMFL) + Tables 7-8 (Beer) — same as
 // calculator.html's "Total(IMFL&BEER)" row.
 function sumOf(rows, field) {
@@ -420,21 +422,21 @@ function computeImflBeerTotal(groups) {
     salesValue: imfl.salesValue + beer.salesValue,
   };
 }
-
+ 
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
+ 
 // ════════════════════════════════════════════
 // WEB BLUETOOTH — ESC/POS PRINTER
 // ════════════════════════════════════════════
 let btDevice = null;
 let btCharacteristic = null;
-
+ 
 const SVC_KEY = 'btprinter_svc_uuid';
 const CHR_KEY = 'btprinter_chr_uuid';
 const WIDTH_KEY = 'btprinter_width';
-
+ 
 (function restoreSettings(){
   const svc = localStorage.getItem(SVC_KEY);
   const chr = localStorage.getItem(CHR_KEY);
@@ -450,7 +452,7 @@ const WIDTH_KEY = 'btprinter_width';
     localStorage.setItem(WIDTH_KEY, document.getElementById('paperWidth').value);
   });
 });
-
+ 
 function setBtStatus(connected, label) {
   const dot = document.getElementById('btDot');
   const txt = document.getElementById('btText');
@@ -458,11 +460,11 @@ function setBtStatus(connected, label) {
   txt.textContent = label;
   updatePrintAvailability();
 }
-
+ 
 function updatePrintAvailability() {
   document.getElementById('printBtn').disabled = !(btCharacteristic && selectedRows.length);
 }
-
+ 
 document.getElementById('connectBtn').onclick = async () => {
   if (!navigator.bluetooth) {
     showToast('Web Bluetooth is not supported in this browser.', 'error');
@@ -482,17 +484,17 @@ document.getElementById('connectBtn').onclick = async () => {
         optionalServices: [svcUuid]
       });
     });
-
+ 
     setBtStatus(false, 'Connecting…');
     btDevice.addEventListener('gattserverdisconnected', () => {
       btCharacteristic = null;
       setBtStatus(false, 'Disconnected');
     });
-
+ 
     const server = await btDevice.gatt.connect();
     const service = await server.getPrimaryService(svcUuid);
     btCharacteristic = await service.getCharacteristic(chrUuid);
-
+ 
     setBtStatus(true, 'Connected: ' + (btDevice.name || 'BT Printer'));
     showToast('Printer connected ✅', 'success');
   } catch (e) {
@@ -500,7 +502,7 @@ document.getElementById('connectBtn').onclick = async () => {
     showToast('Bluetooth error: ' + e.message, 'error');
   }
 };
-
+ 
 document.getElementById('printBtn').onclick = async () => {
   if (!btCharacteristic) return showToast('Connect the printer first.', 'error');
   if (!selectedRows.length) return showToast('Select a report first.', 'error');
@@ -517,7 +519,7 @@ document.getElementById('printBtn').onclick = async () => {
     updatePrintAvailability();
   }
 };
-
+ 
 // ---- ESC/POS helpers ----
 const ESC = 0x1B, GS = 0x1D;
 function textEncode(str) {
@@ -530,8 +532,38 @@ function pad(str, len) {
 }
 function padLeft(str, len) {
   str = String(str);
-  if (str.length >= len) return str.slice(0, len);
+  // never cut numbers (a cut number would print a WRONG value)
+  if (str.length >= len) return str;
   return ' '.repeat(len - str.length) + str;
+}
+// Thermal printers can't print emoji / special unicode -> they come out as
+// garbage. Convert to plain ASCII so every character prints clearly.
+function cleanText(s) {
+  return String(s ?? '')
+    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
+    .replace(/[\u2013\u2014]/g, '-')
+    .replace(/[^\x20-\x7E]/g, '')
+    .replace(/\s+/g, ' ').trim();
+}
+// Wrap a long brand name onto several lines instead of cutting it off
+function wrapText(str, len) {
+  str = cleanText(str);
+  if (!str) return [''];
+  const lines = [];
+  let cur = '';
+  str.split(' ').forEach(word => {
+    while (word.length > len) {               // very long single word
+      if (cur) { lines.push(cur); cur = ''; }
+      lines.push(word.slice(0, len));
+      word = word.slice(len);
+    }
+    if (!cur) cur = word;
+    else if ((cur + ' ' + word).length <= len) cur += ' ' + word;
+    else { lines.push(cur); cur = word; }
+  });
+  if (cur) lines.push(cur);
+  return lines.length ? lines : [''];
 }
 function centerLine(str, width) {
   str = String(str);
@@ -539,58 +571,71 @@ function centerLine(str, width) {
   const left = Math.floor((width - str.length) / 2);
   return ' '.repeat(left) + str;
 }
-
+ 
 function buildReceipt(name, groups, width) {
   // Column widths tuned for the 5 fields we print (brand gets remaining space)
-  const wML = 5, wOB = 6, wCB = 6, wSales = 7;
-  const wBrand = Math.max(6, width - wML - wOB - wCB - wSales);
-
+  // SN column added. Widths adapt to 58mm (32) / 80mm (48) paper.
+  const narrow = width < 40;
+  const wSN = 3, wML = narrow ? 4 : 5, wOB = narrow ? 4 : 5,
+        wCB = narrow ? 4 : 5, wSales = 6;
+  const wBrand = Math.max(8, width - wSN - wML - wOB - wCB - wSales);
+  let sn = 0;   // continuous serial number across all tables
+ 
   const bytes = [];
   const push = arr => bytes.push(...arr);
   const headerRow = () => textEncode(
-    pad('Brand', wBrand) + padLeft('ML', wML) + padLeft('OB', wOB) +
+    padLeft('SN', wSN) + ' ' + pad('Brand', wBrand - 1) + padLeft('ML', wML) + padLeft('OB', wOB) +
     padLeft('CB', wCB) + padLeft('Sales', wSales) + '\n'
   );
-
+ 
   push([ESC, 0x40]);              // init
+  push([ESC, 0x74, 0x00]);        // code page 0 (plain ASCII)
+  push([ESC, 0x47, 0x01]);        // double-strike ON -> darker, clearer text
   push([ESC, 0x61, 0x01]);        // center align
-  push(textEncode('Ⓜ️\n'));
   push([ESC, 0x21, 0x30]);        // double width+height
   push(textEncode('SHOP 2605\n'));
+  push([ESC, 0x21, 0x08]);        // bold, normal size
+  push(textEncode(cleanText(name || 'Report') + '\n'));
   push([ESC, 0x21, 0x00]);        // normal
-  push(textEncode((name || 'Report') + '\n'));
-  push(textEncode(new Date().toLocaleString() + '\n'));
+  push(textEncode(cleanText(new Date().toLocaleString()) + '\n'));
   push([ESC, 0x61, 0x00]);        // left align
-
+ 
   let totalSales = 0;
   let totalRows = 0;
-
+ 
   groups.forEach(g => {
     if (!g.rows.length) return;
     push(textEncode('-'.repeat(width) + '\n'));
     push([ESC, 0x45, 0x01]);            // bold on
-    push(textEncode(g.title + '\n'));
-    push([ESC, 0x45, 0x00]);            // bold off
+    push(textEncode(cleanText(g.title) + '\n'));
     push(headerRow());
+    push([ESC, 0x45, 0x00]);            // bold off
     push(textEncode('-'.repeat(width) + '\n'));
-
+ 
     g.rows.forEach(r => {
       totalSales += Number(r.sales) || 0;
       totalRows += 1;
+      sn += 1;
+      const lines = wrapText(r.brand, wBrand - 1);
+      // first line: SN + brand + numbers
       push(textEncode(
-        pad(r.brand, wBrand) + padLeft(r.ml, wML) + padLeft(r.ob, wOB) +
+        padLeft(sn, wSN) + ' ' + pad(lines[0], wBrand - 1) + padLeft(r.ml, wML) + padLeft(r.ob, wOB) +
         padLeft(r.cb, wCB) + padLeft(r.sales, wSales) + '\n'
       ));
+      // continuation lines of a long brand name (nothing is cut off)
+      for (let i = 1; i < lines.length; i++) {
+        push(textEncode(' '.repeat(wSN + 1) + lines[i] + '\n'));
+      }
     });
   });
-
+ 
   push(textEncode('-'.repeat(width) + '\n'));
   push([ESC, 0x45, 0x01]);
   push(textEncode(centerLine('TOTAL SALES: ' + totalSales, width) + '\n'));
   push([ESC, 0x45, 0x00]);
   push(textEncode('-'.repeat(width) + '\n'));
   push(textEncode(centerLine(totalRows + ' item(s)', width) + '\n'));
-
+ 
   const grand = computeImflBeerTotal(groups);
   push(textEncode('-'.repeat(width) + '\n'));
   push([ESC, 0x45, 0x01]);
@@ -603,23 +648,25 @@ function buildReceipt(name, groups, width) {
   push(textEncode('CB Value: ' + money(grand.cbValue) + '\n'));
   push(textEncode('Sales Value: ' + money(grand.salesValue) + '\n'));
   push(textEncode('-'.repeat(width) + '\n'));
-
+ 
+  push([ESC, 0x47, 0x00]);        // double-strike OFF
   push(textEncode('\n\n\n'));
   push([GS, 0x56, 0x01]);         // partial cut (ignored by printers without a cutter)
-
+ 
   return new Uint8Array(bytes);
 }
-
+ 
 async function sendToPrinter(bytes) {
   // BLE characteristics usually cap writes around 20 bytes (default MTU);
   // chunk the payload so long receipts print reliably.
-  const CHUNK = 180;
+  const CHUNK = 100;   // smaller chunks = no dropped / garbled characters
   for (let i = 0; i < bytes.length; i += CHUNK) {
     const chunk = bytes.slice(i, i + CHUNK);
     await btCharacteristic.writeValue(chunk);
-    await new Promise(r => setTimeout(r, 25));
+    await new Promise(r => setTimeout(r, 40));
   }
 }
 </script>
 </body>
 </html>
+ 
