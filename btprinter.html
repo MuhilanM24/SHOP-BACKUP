@@ -320,7 +320,7 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
         <div class="groupTitle">${escapeHtml(g.title)}</div>
         <table class="preview">
           <thead>
-            <tr><th>SN</th><th>Brand</th><th>ML</th><th class="num">Price</th><th class="num">OB</th><th class="num">CB</th></tr>
+            <tr><th>SN</th><th>Brand</th><th>ML</th><th class="num">OB</th><th class="num">CB</th><th class="num">Price</th></tr>
           </thead>
           <tbody>
             ${g.rows.map(r => `
@@ -328,9 +328,9 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
                 <td>${++sn}</td>
                 <td>${escapeHtml(String(r.brand))}</td>
                 <td>${escapeHtml(String(r.ml))}</td>
-                <td class="num">${fmtPrice(r.price)}</td>
                 <td class="num">${r.ob}</td>
                 <td class="num">${r.cb}</td>
+                <td class="num">${fmtPrice(r.price)}</td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -584,7 +584,7 @@ function buildReceipt(name, groups, width) {
   const push = arr => bytes.push(...arr);
   const headerRow = () => textEncode(
     padLeft('SN', wSN) + ' ' + pad('Brand', wBrand - 1) + padLeft('ML', wML) +
-    padLeft('Price', wPrice) + padLeft('OB', wOB) + padLeft('CB', wCB) + '\n'
+    padLeft('OB', wOB) + padLeft('CB', wCB) + padLeft('Price', wPrice) + '\n'
   );
  
   push([ESC, 0x40]);              // init
@@ -618,7 +618,7 @@ function buildReceipt(name, groups, width) {
       // first line: SN + brand + numbers
       push(textEncode(
         padLeft(sn, wSN) + ' ' + pad(lines[0], wBrand - 1) + padLeft(r.ml, wML) +
-        padLeft(fmtPrice(r.price), wPrice) + padLeft(r.ob, wOB) + padLeft(r.cb, wCB) + '\n'
+        padLeft(r.ob, wOB) + padLeft(r.cb, wCB) + padLeft(fmtPrice(r.price), wPrice) + '\n'
       ));
       // continuation lines of a long brand name (nothing is cut off)
       for (let i = 1; i < lines.length; i++) {
