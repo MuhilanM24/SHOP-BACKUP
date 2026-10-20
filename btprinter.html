@@ -311,17 +311,16 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
   }
  
   const groups = groupLikeCalculator(selectedRows);
-  let sn = 0; // continuous serial number across all tables (same as print)
   const totalSales = selectedRows.reduce((a,r)=>a + (Number(r.sales)||0), 0);
   const grand = computeImflBeerTotal(groups);
  
   box.innerHTML = `
     <div class="scrollbox">
-      ${groups.filter(g => g.rows.length).map(g => `
+      ${groups.filter(g => g.rows.length).map(g => { let sn = 0; return `
         <div class="groupTitle">${escapeHtml(g.title)}</div>
         <table class="preview">
           <thead>
-            <tr><th>#</th><th>Brand</th><th>ML</th><th class="num">OB</th><th class="num">CB</th><th class="num">Sales</th></tr>
+            <tr><th>SN</th><th>Brand</th><th>ML</th><th class="num">Price</th><th class="num">OB</th><th class="num">CB</th></tr>
           </thead>
           <tbody>
             ${g.rows.map(r => `
@@ -329,13 +328,13 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
                 <td>${++sn}</td>
                 <td>${escapeHtml(String(r.brand))}</td>
                 <td>${escapeHtml(String(r.ml))}</td>
+                <td class="num">${fmtPrice(r.price)}</td>
                 <td class="num">${r.ob}</td>
                 <td class="num">${r.cb}</td>
-                <td class="num">${r.sales}</td>
               </tr>`).join('')}
           </tbody>
         </table>
-      `).join('')}
+      `; }).join('')}
     </div>
     <div class="summary"><span>${selectedRows.length} rows</span><span>Total Sales: ${totalSales}</span></div>
     <div class="groupTitle">Total (IMFL &amp; Beer)</div>
@@ -358,6 +357,7 @@ document.getElementById('reportSelect').addEventListener('change', (e) => {
   updatePrintAvailability();
 });
  
+function fmtPrice(n) { return String(Number(n) || 0); }
 function money(n) { return (Number(n) || 0).toFixed(2); }
  
 // ════════════════════════════════════════════
@@ -576,16 +576,15 @@ function buildReceipt(name, groups, width) {
   // Column widths tuned for the 5 fields we print (brand gets remaining space)
   // SN column added. Widths adapt to 58mm (32) / 80mm (48) paper.
   const narrow = width < 40;
-  const wSN = 3, wML = narrow ? 4 : 5, wOB = narrow ? 4 : 5,
-        wCB = narrow ? 4 : 5, wSales = 6;
-  const wBrand = Math.max(8, width - wSN - wML - wOB - wCB - wSales);
-  let sn = 0;   // continuous serial number across all tables
+  const wSN = 3, wML = narrow ? 4 : 5, wPrice = 6,
+        wOB = narrow ? 4 : 5, wCB = narrow ? 4 : 5;
+  const wBrand = Math.max(8, width - wSN - wML - wPrice - wOB - wCB);
  
   const bytes = [];
   const push = arr => bytes.push(...arr);
   const headerRow = () => textEncode(
-    padLeft('SN', wSN) + ' ' + pad('Brand', wBrand - 1) + padLeft('ML', wML) + padLeft('OB', wOB) +
-    padLeft('CB', wCB) + padLeft('Sales', wSales) + '\n'
+    padLeft('SN', wSN) + ' ' + pad('Brand', wBrand - 1) + padLeft('ML', wML) +
+    padLeft('Price', wPrice) + padLeft('OB', wOB) + padLeft('CB', wCB) + '\n'
   );
  
   push([ESC, 0x40]);              // init
@@ -600,11 +599,11 @@ function buildReceipt(name, groups, width) {
   push(textEncode(cleanText(new Date().toLocaleString()) + '\n'));
   push([ESC, 0x61, 0x00]);        // left align
  
-  let totalSales = 0;
   let totalRows = 0;
  
   groups.forEach(g => {
     if (!g.rows.length) return;
+    let sn = 0;                         // serial number restarts for every table
     push(textEncode('-'.repeat(width) + '\n'));
     push([ESC, 0x45, 0x01]);            // bold on
     push(textEncode(cleanText(g.title) + '\n'));
@@ -613,14 +612,13 @@ function buildReceipt(name, groups, width) {
     push(textEncode('-'.repeat(width) + '\n'));
  
     g.rows.forEach(r => {
-      totalSales += Number(r.sales) || 0;
       totalRows += 1;
       sn += 1;
       const lines = wrapText(r.brand, wBrand - 1);
       // first line: SN + brand + numbers
       push(textEncode(
-        padLeft(sn, wSN) + ' ' + pad(lines[0], wBrand - 1) + padLeft(r.ml, wML) + padLeft(r.ob, wOB) +
-        padLeft(r.cb, wCB) + padLeft(r.sales, wSales) + '\n'
+        padLeft(sn, wSN) + ' ' + pad(lines[0], wBrand - 1) + padLeft(r.ml, wML) +
+        padLeft(fmtPrice(r.price), wPrice) + padLeft(r.ob, wOB) + padLeft(r.cb, wCB) + '\n'
       ));
       // continuation lines of a long brand name (nothing is cut off)
       for (let i = 1; i < lines.length; i++) {
@@ -630,10 +628,6 @@ function buildReceipt(name, groups, width) {
   });
  
   push(textEncode('-'.repeat(width) + '\n'));
-  push([ESC, 0x45, 0x01]);
-  push(textEncode(centerLine('TOTAL SALES: ' + totalSales, width) + '\n'));
-  push([ESC, 0x45, 0x00]);
-  push(textEncode('-'.repeat(width) + '\n'));
   push(textEncode(centerLine(totalRows + ' item(s)', width) + '\n'));
  
   const grand = computeImflBeerTotal(groups);
@@ -642,11 +636,10 @@ function buildReceipt(name, groups, width) {
   push(textEncode(centerLine('TOTAL (IMFL & BEER)', width) + '\n'));
   push([ESC, 0x45, 0x00]);
   push(textEncode(
-    'OB: ' + grand.ob + '   CB: ' + grand.cb + '   Sales: ' + grand.sales + '\n'
+    'OB: ' + grand.ob + '   CB: ' + grand.cb + '\n'
   ));
   push(textEncode('OB Value: ' + money(grand.obValue) + '\n'));
   push(textEncode('CB Value: ' + money(grand.cbValue) + '\n'));
-  push(textEncode('Sales Value: ' + money(grand.salesValue) + '\n'));
   push(textEncode('-'.repeat(width) + '\n'));
  
   push([ESC, 0x47, 0x00]);        // double-strike OFF
